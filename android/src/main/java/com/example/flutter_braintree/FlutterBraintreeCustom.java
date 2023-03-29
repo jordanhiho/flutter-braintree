@@ -25,6 +25,9 @@ import com.braintreepayments.api.DataCollector;
 import com.google.android.gms.wallet.TransactionInfo;
 import com.google.android.gms.wallet.WalletConstants;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import java.util.HashMap;
 
 public class FlutterBraintreeCustom extends AppCompatActivity implements PaymentMethodNonceCreatedListener, BraintreeCancelListener, BraintreeErrorListener {
@@ -133,8 +136,13 @@ public class FlutterBraintreeCustom extends AppCompatActivity implements Payment
     protected void requestGooglePayPayment() {
         Intent intent = getIntent();
         collectDeviceData();
+        JSONArray cardNetworkStrings = new JSONArray();
+        cardNetworkStrings.put("VISA");
+        cardNetworkStrings.put("MASTERCARD");
+
         GooglePaymentRequest googlePaymentRequest = new GooglePaymentRequest()
                 .transactionInfo(TransactionInfo.newBuilder()
+                        .setAllowedCardNetworks("CARD", cardNetworkStrings)
                         .setTotalPrice(intent.getStringExtra("totalPrice"))
                         .setCurrencyCode(intent.getStringExtra("currencyCode"))
                         .setTotalPriceStatus(WalletConstants.TOTAL_PRICE_STATUS_FINAL)
