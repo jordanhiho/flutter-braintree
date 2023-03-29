@@ -142,11 +142,11 @@ public class FlutterBraintreeCustom extends AppCompatActivity implements Payment
 
         GooglePaymentRequest googlePaymentRequest = new GooglePaymentRequest()
                 .transactionInfo(TransactionInfo.newBuilder()
-                        .setAllowedCardNetworks("CARD", cardNetworkStrings)
                         .setTotalPrice(intent.getStringExtra("totalPrice"))
                         .setCurrencyCode(intent.getStringExtra("currencyCode"))
                         .setTotalPriceStatus(WalletConstants.TOTAL_PRICE_STATUS_FINAL)
                         .build())
+                .setAllowedCardNetworks("CARD", cardNetworkStrings)
                 .billingAddressRequired(true)
                 .googleMerchantId(intent.getStringExtra("googleMerchantID"));
 
