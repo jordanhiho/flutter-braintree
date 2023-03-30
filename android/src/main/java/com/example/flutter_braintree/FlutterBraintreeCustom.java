@@ -133,13 +133,42 @@ public class FlutterBraintreeCustom extends AppCompatActivity implements Payment
         });
     }
 
+    private static JSONArray buildCardNetworks(BraintreeFragment fragment) {
+        JSONArray cardNetworkStrings = new JSONArray();
+
+        for (int network : getAllowedCardNetworks(fragment)) {
+            switch (network) {
+                case WalletConstants.CARD_NETWORK_AMEX:
+                    cardNetworkStrings.put("AMEX");
+                    break;
+                case WalletConstants.CARD_NETWORK_DISCOVER:
+                    cardNetworkStrings.put("DISCOVER");
+                    break;
+                case WalletConstants.CARD_NETWORK_JCB:
+                    cardNetworkStrings.put("JCB");
+                    break;
+                case WalletConstants.CARD_NETWORK_MASTERCARD:
+                    cardNetworkStrings.put("MASTERCARD");
+                    break;
+                case WalletConstants.CARD_NETWORK_VISA:
+                    cardNetworkStrings.put("VISA");
+                    break;
+                case BraintreeWalletConstants.CARD_NETWORK_ELO:
+                    cardNetworkStrings.put("ELO");
+                    cardNetworkStrings.put("ELO_DEBIT");
+                    break;
+            }
+        }
+        return cardNetworkStrings;
+    }
+
     protected void requestGooglePayPayment() {
         Intent intent = getIntent();
         collectDeviceData();
 //        JSONArray cardNetworkStrings = new JSONArray();
 //        cardNetworkStrings.put("VISA");
 //        cardNetworkStrings.put("MASTERCARD");
-        JSONArray cardNetworkStrings = GooglePayment.buildCardNetworks(braintreeFragment);
+        JSONArray cardNetworkStrings = buildCardNetworks(braintreeFragment);
 
         GooglePaymentRequest googlePaymentRequest = new GooglePaymentRequest()
                 .transactionInfo(TransactionInfo.newBuilder()
