@@ -136,9 +136,10 @@ public class FlutterBraintreeCustom extends AppCompatActivity implements Payment
     protected void requestGooglePayPayment() {
         Intent intent = getIntent();
         collectDeviceData();
-        JSONArray cardNetworkStrings = new JSONArray();
-        cardNetworkStrings.put("VISA");
-        cardNetworkStrings.put("MASTERCARD");
+//        JSONArray cardNetworkStrings = new JSONArray();
+//        cardNetworkStrings.put("VISA");
+//        cardNetworkStrings.put("MASTERCARD");
+        JSONArray cardNetworkStrings = GooglePayment.buildCardNetworks(braintreeFragment);
 
         GooglePaymentRequest googlePaymentRequest = new GooglePaymentRequest()
                 .transactionInfo(TransactionInfo.newBuilder()
@@ -146,7 +147,7 @@ public class FlutterBraintreeCustom extends AppCompatActivity implements Payment
                         .setCurrencyCode(intent.getStringExtra("currencyCode"))
                         .setTotalPriceStatus(WalletConstants.TOTAL_PRICE_STATUS_FINAL)
                         .build())
-                .environment("TEST")
+//                .environment("TEST")
                 .setAllowedCardNetworks("CARD", cardNetworkStrings)
                 .billingAddressRequired(true)
                 .googleMerchantId(intent.getStringExtra("googleMerchantID"));
