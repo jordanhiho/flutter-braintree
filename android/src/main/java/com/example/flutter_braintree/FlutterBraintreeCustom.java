@@ -146,6 +146,7 @@ public class FlutterBraintreeCustom extends AppCompatActivity implements Payment
                         .setCurrencyCode(intent.getStringExtra("currencyCode"))
                         .setTotalPriceStatus(WalletConstants.TOTAL_PRICE_STATUS_FINAL)
                         .build())
+                .environment("PRODUCTION")
                 .setAllowedCardNetworks("CARD", cardNetworkStrings)
                 .billingAddressRequired(true)
                 .googleMerchantId(intent.getStringExtra("googleMerchantID"));
