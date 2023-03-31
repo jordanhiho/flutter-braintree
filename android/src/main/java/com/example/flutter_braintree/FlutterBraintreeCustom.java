@@ -133,12 +133,24 @@ public class FlutterBraintreeCustom extends AppCompatActivity implements Payment
         });
     }
 
+    private static JSONArray getAllowedCardNetworks() {
+        return new JSONArray()
+//                .put("AMEX")
+//                .put("DISCOVER")
+//                .put("INTERAC")
+//                .put("JCB")
+                .put("MASTERCARD")
+                .put("VISA");
+    }
+
     private static JSONArray buildCardNetworks(
 //            BraintreeFragment fragment
     ) {
-        JSONArray cardNetworkStrings = new JSONArray();
-        cardNetworkStrings.put("MASTERCARD");
-        cardNetworkStrings.put("VISA");
+//        JSONArray cardNetworkStrings = new JSONArray();
+//        cardNetworkStrings.put("MASTERCARD");
+//        cardNetworkStrings.put("VISA");
+
+
 
 //        for (int network : GooglePayment.getAllowedCardNetworks(fragment)) {
 //            switch (network) {
@@ -177,7 +189,7 @@ public class FlutterBraintreeCustom extends AppCompatActivity implements Payment
                         .setTotalPriceStatus(WalletConstants.TOTAL_PRICE_STATUS_FINAL)
                         .build())
 //                .environment("TEST")
-                .setAllowedCardNetworks("CARD", cardNetworkStrings)
+                .setAllowedCardNetworks("GOOGLE_PAYMENT", getAllowedCardNetworks())
                 .billingAddressRequired(true)
                 .googleMerchantId(intent.getStringExtra("googleMerchantID"));
 
