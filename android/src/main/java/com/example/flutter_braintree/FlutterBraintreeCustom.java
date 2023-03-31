@@ -143,36 +143,36 @@ public class FlutterBraintreeCustom extends AppCompatActivity implements Payment
                 .put("VISA");
     }
 
-    private static JSONArray buildCardNetworks(
-//            BraintreeFragment fragment
-    ) {
-//        JSONArray cardNetworkStrings = new JSONArray();
-//        cardNetworkStrings.put("MASTERCARD");
-//        cardNetworkStrings.put("VISA");
-
-
-
-//        for (int network : GooglePayment.getAllowedCardNetworks(fragment)) {
-//            switch (network) {
-//                case WalletConstants.CARD_NETWORK_AMEX:
-//                    cardNetworkStrings.put("AMEX");
-//                    break;
-//                case WalletConstants.CARD_NETWORK_DISCOVER:
-//                    cardNetworkStrings.put("DISCOVER");
-//                    break;
-//                case WalletConstants.CARD_NETWORK_JCB:
-//                    cardNetworkStrings.put("JCB");
-//                    break;
-//                case WalletConstants.CARD_NETWORK_MASTERCARD:
-//                    cardNetworkStrings.put("MASTERCARD");
-//                    break;
-//                case WalletConstants.CARD_NETWORK_VISA:
-//                    cardNetworkStrings.put("VISA");
-//                    break;
-//            }
-//        }
-        return cardNetworkStrings;
-    }
+//    private static JSONArray buildCardNetworks(
+////            BraintreeFragment fragment
+//    ) {
+////        JSONArray cardNetworkStrings = new JSONArray();
+////        cardNetworkStrings.put("MASTERCARD");
+////        cardNetworkStrings.put("VISA");
+//
+//
+//
+////        for (int network : GooglePayment.getAllowedCardNetworks(fragment)) {
+////            switch (network) {
+////                case WalletConstants.CARD_NETWORK_AMEX:
+////                    cardNetworkStrings.put("AMEX");
+////                    break;
+////                case WalletConstants.CARD_NETWORK_DISCOVER:
+////                    cardNetworkStrings.put("DISCOVER");
+////                    break;
+////                case WalletConstants.CARD_NETWORK_JCB:
+////                    cardNetworkStrings.put("JCB");
+////                    break;
+////                case WalletConstants.CARD_NETWORK_MASTERCARD:
+////                    cardNetworkStrings.put("MASTERCARD");
+////                    break;
+////                case WalletConstants.CARD_NETWORK_VISA:
+////                    cardNetworkStrings.put("VISA");
+////                    break;
+////            }
+////        }
+//        return cardNetworkStrings;
+//    }
 
     protected void requestGooglePayPayment() {
         Intent intent = getIntent();
@@ -180,7 +180,7 @@ public class FlutterBraintreeCustom extends AppCompatActivity implements Payment
 //        JSONArray cardNetworkStrings = new JSONArray();
 //        cardNetworkStrings.put("VISA");
 //        cardNetworkStrings.put("MASTERCARD");
-        JSONArray cardNetworkStrings = buildCardNetworks();
+//        JSONArray cardNetworkStrings = buildCardNetworks();
 
         GooglePaymentRequest googlePaymentRequest = new GooglePaymentRequest()
                 .transactionInfo(TransactionInfo.newBuilder()
