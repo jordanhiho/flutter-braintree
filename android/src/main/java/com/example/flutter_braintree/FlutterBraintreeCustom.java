@@ -190,7 +190,7 @@ public class FlutterBraintreeCustom extends AppCompatActivity implements Payment
                         .build())
 //                .environment("TEST")
                 .environment("PRODUCTION")
-                .setAllowedCardNetworks("CARD", getAllowedCardNetworks())
+//                .setAllowedCardNetworks("CARD", getAllowedCardNetworks())
 //                .setAllowedCardNetworks(getAllowedCardNetworksForType("CARD"))
                 .billingAddressRequired(true)
                 .googleMerchantId(intent.getStringExtra("googleMerchantID"));
