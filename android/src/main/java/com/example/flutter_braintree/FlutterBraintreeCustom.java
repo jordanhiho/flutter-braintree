@@ -20,6 +20,7 @@ import com.braintreepayments.api.models.PayPalRequest;
 import com.braintreepayments.api.models.GooglePaymentRequest;
 import com.braintreepayments.api.models.PaymentMethodNonce;
 import com.braintreepayments.api.models.PayPalAccountNonce;
+import com.braintreepayments.api.models.CardNonce;
 import com.braintreepayments.api.DataCollector;
 
 import com.google.android.gms.wallet.TransactionInfo;
