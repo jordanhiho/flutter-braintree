@@ -216,7 +216,7 @@ public class FlutterBraintreeCustom extends AppCompatActivity implements Payment
         }
         else if(paymentMethodNonce instanceof CardNonce) {
             CardNonce cardNonce = (CardNonce) paymentMethodNonce;
-            nonceMap.put("isNetworkTokenized", cardNonce.isNetworkTokenized());
+            nonceMap.put("isNetworkTokenized", false);
         }
 //        else if(paymentMethodNonce instanceof GooglePaymentCardNonce) {
 //            GooglePaymentCardNonce googlePaymentCardNonce = (GooglePaymentCardNonce) paymentMethodNonce;
