@@ -26,7 +26,8 @@ class BraintreePaymentMethodNonce {
     required this.description,
     required this.isDefault,
     this.paypalPayerId,
-    this.deviceData
+    this.deviceData,
+    this.isNetworkTokenized,
   });
 
   factory BraintreePaymentMethodNonce.fromJson(dynamic source) {
@@ -36,7 +37,8 @@ class BraintreePaymentMethodNonce {
       description: source['description'],
       isDefault: source['isDefault'],
       paypalPayerId: source['paypalPayerId'],
-        deviceData: source['deviceData']
+      deviceData: source['deviceData'],
+      isNetworkTokenized: source['isNetworkTokenized'],
     );
   }
 
@@ -57,6 +59,8 @@ class BraintreePaymentMethodNonce {
   final String? paypalPayerId;
 
   final String? deviceData;
+
+  final bool? isNetworkTokenized;
 
 }
 

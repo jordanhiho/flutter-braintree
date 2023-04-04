@@ -25,6 +25,13 @@ import com.braintreepayments.api.DataCollector;
 import com.google.android.gms.wallet.TransactionInfo;
 import com.google.android.gms.wallet.WalletConstants;
 
+import com.braintreepayments.api.models.GooglePaymentCardNonce;
+import com.braintreepayments.api.models.ThreeDSecureAdditionalInformation;
+import com.braintreepayments.api.models.ThreeDSecureRequest;
+import com.braintreepayments.api.models.ThreeDSecureLookup;
+import com.braintreepayments.api.ThreeDSecure;
+import com.braintreepayments.api.interfaces.ThreeDSecureLookupListener;
+
 import java.util.HashMap;
 
 public class FlutterBraintreeCustom extends AppCompatActivity implements PaymentMethodNonceCreatedListener, BraintreeCancelListener, BraintreeErrorListener {
@@ -63,6 +70,8 @@ public class FlutterBraintreeCustom extends AppCompatActivity implements Payment
                 requestGooglePayPayment();
             } else if (type.equals("isGooglePayReady")) {
                 isGooglePayReady();
+            } else if (type.equals("threeDSecure")) {
+                performThreeDSecureRequest();
             }
             else {
                 throw new Exception("Invalid request type: " + type);
@@ -168,6 +177,29 @@ public class FlutterBraintreeCustom extends AppCompatActivity implements Payment
         });
     }
 
+    protected void performThreeDSecureRequest(){
+        Intent intent = getIntent();
+        collectDeviceData();
+        // eligible for 3DS Verification
+        ThreeDSecureRequest threeDSecureRequest = new ThreeDSecureRequest();
+        threeDSecureRequest.amount(intent.getStringExtra("totalPrice"));
+//        request.setEmail("test@email.com");
+//        request.setBillingAddress(address);
+//        request.setAdditionalInformation(additionalInfo);
+        threeDSecureRequest.nonce(
+                intent.getStringExtra("paymentNonce")
+        ); // Use Payment Nonce
+        threeDSecureRequest.versionRequested(ThreeDSecureRequest.VERSION_2);
+
+        ThreeDSecure.performVerification(braintreeFragment, threeDSecureRequest, new ThreeDSecureLookupListener() {
+            @Override
+            public void onLookupComplete(ThreeDSecureRequest request, ThreeDSecureLookup lookup) {
+                // Optionally inspect the lookup result and prepare UI if a challenge is required
+                ThreeDSecure.continuePerformVerification(braintreeFragment, request, lookup);
+            }
+        });
+    }
+
     @Override
     public void onPaymentMethodNonceCreated(PaymentMethodNonce paymentMethodNonce) {
         HashMap<String, Object> nonceMap = new HashMap<String, Object>();
@@ -181,6 +213,18 @@ public class FlutterBraintreeCustom extends AppCompatActivity implements Payment
             PayPalAccountNonce paypalAccountNonce = (PayPalAccountNonce) paymentMethodNonce;
             nonceMap.put("paypalPayerId", paypalAccountNonce.getPayerId());
         }
+        else if(paymentMethodNonce instanceof CardNonce) {
+            CardNonce cardNonce = (CardNonce) paymentMethodNonce;
+            nonceMap.put("isNetworkTokenized", cardNonce.isNetworkTokenized());
+        }
+//        else if(paymentMethodNonce instanceof GooglePaymentCardNonce) {
+//            GooglePaymentCardNonce googlePaymentCardNonce = (GooglePaymentCardNonce) paymentMethodNonce;
+//            nonceMap.put("isNetworkTokenized", googlePaymentCardNonce.isNetworkTokenized());
+//        }
+//        else if(paymentMethodNonce instanceof GooglePaymentCardNonce) {
+//            GooglePaymentCardNonce googlePaymentCardNonce = (GooglePaymentCardNonce) paymentMethodNonce;
+//            nonceMap.put("isNetworkTokenized", googlePaymentCardNonce.isNetworkTokenized());
+//        }
         Intent result = new Intent();
         result.putExtra("type", "paymentMethodNonce");
         result.putExtra("paymentMethodNonce", nonceMap);

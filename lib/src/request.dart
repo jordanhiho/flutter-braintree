@@ -141,6 +141,26 @@ class BraintreeGooglePaymentRequest {
       };
 }
 
+class BraintreeThreeDSecureRequest {
+  BraintreeThreeDSecureRequest({
+    required this.totalPrice,
+    required this.paymentNonce,
+  });
+
+  /// Total price of the payment.
+  String totalPrice;
+
+  /// Currency code of the transaction.
+  String paymentNonce;
+
+
+  /// Converts this request object into a JSON-encodable format.
+  Map<String, dynamic> toJson() => {
+        'totalPrice': totalPrice,
+        'paymentNonce': paymentNonce,
+      };
+}
+
 class BraintreePayPalRequest {
   BraintreePayPalRequest({
     this.amount,

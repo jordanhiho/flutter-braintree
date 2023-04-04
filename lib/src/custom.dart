@@ -77,6 +77,18 @@ class Braintree {
     return BraintreePaymentMethodNonce.fromJson(result);
   }
 
+  static Future<BraintreePaymentMethodNonce?> threeDSecure(
+    String authorization,
+    BraintreeThreeDSecureRequest request,
+  ) async {
+    final result = await _kChannel.invokeMethod('threeDSecure', {
+      'authorization': authorization,
+      'request': request.toJson(),
+    });
+    if (result == null) return null;
+    return BraintreePaymentMethodNonce.fromJson(result);
+  }
+
   static Future<BraintreePaymentMethodNonce?> requestApplePay(
       String authorization,
       BraintreeApplePayRequest request,
